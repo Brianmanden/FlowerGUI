@@ -1,118 +1,137 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows; // WPF
-using WinForms = System.Windows.Forms; // Alias så vi kan bruge NotifyIcon
+using System;
+using System.Windows;
+using FlowerGUIListener.Models;
+using FlowerGUIListener.Services;
+using FlowerGUIListener.Windows;
 
 namespace FlowerGUIListener
 {
     public partial class App : Application
     {
-        private WinForms.NotifyIcon trayIcon;
-        private static IntPtr _keyboardHookID = IntPtr.Zero;
-        private static IntPtr _mouseHookID = IntPtr.Zero;
-
-        private static LowLevelKeyboardProc _keyboardProc;
-        private static LowLevelMouseProc _mouseProc;
-
-        private static bool ctrlPressed = false;
-
-        // Delegates til hooks
-        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
-        private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
-
-        // Konstanter
-        private const int WH_KEYBOARD_LL = 13;
-        private const int WH_MOUSE_LL = 14;
-        private const int WM_KEYDOWN = 0x0100;
-        private const int WM_KEYUP = 0x0101;
-        private const int WM_RBUTTONDOWN = 0x0204;
+        private GlobalHookManager _hookManager;
+        private TrayIconManager _trayManager;
+        private FlowerGUIWindow _flowerWindow;
+        private Settings _settings;
+        private bool _disposed = false;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // Skjul hovedvinduet, så kun tray-ikonet vises
-            if (Current.MainWindow != null)
-                Current.MainWindow.Hide();
-
-            // Opret tray-ikon
-            trayIcon = new WinForms.NotifyIcon();
-            trayIcon.Icon = System.Drawing.SystemIcons.Application;
-            trayIcon.Visible = true;
-            trayIcon.Text = "Blomster-GUI Listener";
-
-            var menu = new WinForms.ContextMenuStrip();
-            menu.Items.Add("Exit", null, OnExit);
-            menu.Items.Add("Exit2", null, OnExit);
-            trayIcon.ContextMenuStrip = menu;
-
-            // Opsæt global hooks
-            _keyboardProc = KeyboardProc;
-            _keyboardHookID = SetHook(_keyboardProc, WH_KEYBOARD_LL);
-            _mouseProc = MouseProc;
-            _mouseHookID = SetHook(_mouseProc, WH_MOUSE_LL);
+            try
+            {
+                InitializeServices();
+                
+                // Hide main window, only show tray icon
+                if (Current.MainWindow != null)
+                    Current.MainWindow.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fejl ved opstart: {ex.Message}\n\nApplikationen vil lukke.", 
+                    "FlowerGUI Fejl", MessageBoxButton.OK, MessageBoxImage.Error);
+                Shutdown();
+            }
         }
 
-        private void OnExit(object sender, EventArgs e)
+        private void InitializeServices()
         {
-            UnhookWindowsHookEx(_keyboardHookID);
-            UnhookWindowsHookEx(_mouseHookID);
-            trayIcon.Visible = false;
+            // Load settings
+            _settings = Settings.Load();
+            
+            // Initialize FlowerGUI window
+            _flowerWindow = new FlowerGUIWindow(_settings);
+            
+            // Initialize and setup tray icon manager
+            _trayManager = new TrayIconManager();
+            _trayManager.Initialize("FlowerGUI Listener - Aktiv");
+            _trayManager.ShowMainWindow += OnShowMainWindow;
+            _trayManager.ExitApplication += OnExitApplication;
+            _trayManager.Show();
+            
+            // Initialize and setup global hook manager
+            _hookManager = new GlobalHookManager();
+            _hookManager.HotkeyActivated += OnHotkeyActivated;
+            
+            bool isElevated = GlobalHookManager.IsRunningElevated();
+            System.Diagnostics.Debug.WriteLine($"Running elevated: {isElevated}");
+            
+            if (!_hookManager.InstallHooks())
+            {
+                string message = "Kunne ikke installere globale genveje. Funktionalitet kan være begrænset.";
+                if (!isElevated)
+                {
+                    message += "\n\nPrøv at køre som administrator for bedre kompatibilitet.";
+                }
+                
+                _trayManager.ShowBalloonTip("FlowerGUI Advarsel", message, 
+                    System.Windows.Forms.ToolTipIcon.Warning);
+            }
+            else
+            {
+                _trayManager.ShowBalloonTip("FlowerGUI Startet", 
+                    "FlowerGUI lytter nu efter Ctrl + højreklik.", 
+                    System.Windows.Forms.ToolTipIcon.Info);
+            }
+        }
+
+        private void OnHotkeyActivated(object sender, HotkeyEventArgs e)
+        {
+            try
+            {
+                // Show the FlowerGUI window at cursor position
+                Dispatcher.BeginInvoke(() => 
+                {
+                    _flowerWindow.ShowAt(e.X, e.Y);
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error showing FlowerGUI: {ex.Message}");
+            }
+        }
+
+        private void OnShowMainWindow(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get current cursor position and show window there
+                var cursorPos = System.Windows.Forms.Cursor.Position;
+                _flowerWindow.ShowAt(cursorPos.X, cursorPos.Y);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error showing main window: {ex.Message}");
+            }
+        }
+
+        private void OnExitApplication(object sender, EventArgs e)
+        {
             Shutdown();
         }
 
-        private static IntPtr KeyboardProc(int nCode, IntPtr wParam, IntPtr lParam)
+        protected override void OnExit(ExitEventArgs e)
         {
-            if (nCode >= 0)
-            {
-                int vkCode = Marshal.ReadInt32(lParam);
-                if (wParam == (IntPtr)WM_KEYDOWN && vkCode == (int)WinForms.Keys.ControlKey)
-                    ctrlPressed = true;
-                else if (wParam == (IntPtr)WM_KEYUP && vkCode == (int)WinForms.Keys.ControlKey)
-                    ctrlPressed = false;
-            }
-            return CallNextHookEx(_keyboardHookID, nCode, wParam, lParam);
+            CleanupResources();
+            base.OnExit(e);
         }
 
-        private static IntPtr MouseProc(int nCode, IntPtr wParam, IntPtr lParam)
+        private void CleanupResources()
         {
-            if (nCode >= 0 && wParam == (IntPtr)WM_RBUTTONDOWN)
+            if (_disposed)
+                return;
+                
+            try
             {
-                if (ctrlPressed)
-                {
-                    // 🚀 Aktiver GUI – lige nu bare en placeholder
-                    MessageBox.Show("Blomster-GUI aktiveret!");
-                }
+                _hookManager?.Dispose();
+                _trayManager?.Dispose();
+                _flowerWindow?.Close();
+                _disposed = true;
             }
-            return CallNextHookEx(_mouseHookID, nCode, wParam, lParam);
-        }
-
-        private static IntPtr SetHook(Delegate proc, int hookType)
-        {
-            using (Process curProcess = Process.GetCurrentProcess())
-            using (ProcessModule curModule = curProcess.MainModule)
+            catch (Exception ex)
             {
-                IntPtr procAddress = Marshal.GetFunctionPointerForDelegate(proc);
-                return SetWindowsHookEx(hookType, procAddress,
-                    GetModuleHandle(curModule.ModuleName), 0);
+                System.Diagnostics.Debug.WriteLine($"Error during cleanup: {ex.Message}");
             }
         }
-
-        // WinAPI imports
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, IntPtr lpfn,
-            IntPtr hMod, uint dwThreadId);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,
-            IntPtr wParam, IntPtr lParam);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
     }
 }
