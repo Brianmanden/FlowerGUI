@@ -10,7 +10,6 @@ namespace FlowerGUIListener.Windows
 {
     public partial class FlowerGUIWindow : Window
     {
-        private ObservableCollection<string> _recentActions;
         private Settings _settings;
         
         public FlowerGUIWindow(Settings settings = null)
@@ -22,15 +21,6 @@ namespace FlowerGUIListener.Windows
 
         private void InitializeWindow()
         {
-            _recentActions = new ObservableCollection<string>();
-            
-            // Add some default items to show the functionality
-            _recentActions.Add("📝 Notat oprettet kl. 14:25");
-            _recentActions.Add("📷 Skærmbillede gemt kl. 14:20");
-            _recentActions.Add("🔍 Søgning udført kl. 14:15");
-            
-            RecentActionsListBox.ItemsSource = _recentActions;
-            
             // Handle keyboard shortcuts
             this.KeyDown += OnKeyDown;
             
@@ -49,9 +39,6 @@ namespace FlowerGUIListener.Windows
             
             this.Left = windowX;
             this.Top = windowY;
-            
-            // Update cursor position display
-            CursorPositionText.Text = $"X: {x}, Y: {y}";
             
             this.Show();
             this.Activate();
@@ -81,8 +68,6 @@ namespace FlowerGUIListener.Windows
 
         private void TakeNote_Click(object sender, RoutedEventArgs e)
         {
-            AddRecentAction("📝 Notat oprettet");
-            
             try
             {
                 // Create a simple note file
@@ -105,8 +90,6 @@ namespace FlowerGUIListener.Windows
 
         private void TakeScreenshot_Click(object sender, RoutedEventArgs e)
         {
-            AddRecentAction("📷 Skærmbillede taget");
-            
             try
             {
                 this.Hide(); // Hide window before taking screenshot
@@ -140,8 +123,6 @@ namespace FlowerGUIListener.Windows
 
         private void OpenClipboard_Click(object sender, RoutedEventArgs e)
         {
-            AddRecentAction("📋 Udklipsholder åbnet");
-            
             try
             {
                 // Try to get clipboard content
@@ -163,8 +144,6 @@ namespace FlowerGUIListener.Windows
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            AddRecentAction("🔍 Søgning startet");
-            
             try
             {
                 // Open Windows search
@@ -193,18 +172,6 @@ namespace FlowerGUIListener.Windows
                           "• Udklipsholder: Vis udklipsholder-indhold\n" +
                           "• Søg: Åbn Windows søgning", 
                           "FlowerGUI Hjælp", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void AddRecentAction(string action)
-        {
-            string actionWithTime = $"{action} kl. {DateTime.Now:HH:mm}";
-            _recentActions.Insert(0, actionWithTime);
-            
-            // Keep only last 10 actions
-            while (_recentActions.Count > 10)
-            {
-                _recentActions.RemoveAt(_recentActions.Count - 1);
-            }
         }
 
         protected override void OnDeactivated(EventArgs e)

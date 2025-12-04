@@ -150,6 +150,9 @@ namespace FlowerGUIListener.Services
                         // Get cursor position
                         var cursorPos = GetCursorPosition();
                         HotkeyActivated?.Invoke(this, new HotkeyEventArgs(cursorPos.X, cursorPos.Y));
+                        
+                        // Return a non-zero value to indicate the event is handled
+                        return (IntPtr)1;
                     }
                 }
             }
