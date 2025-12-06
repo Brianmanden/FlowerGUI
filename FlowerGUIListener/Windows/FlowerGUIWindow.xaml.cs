@@ -143,15 +143,14 @@ namespace FlowerGUIListener.Windows
         {
             try
             {
-                // Open Windows search
-                Process.Start(new ProcessStartInfo("ms-search:") { UseShellExecute = true });
+                // Open Google.com
+                Process.Start(new ProcessStartInfo("https://www.google.com") { UseShellExecute = true });
                 this.Hide();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Fallback to opening search via Windows key simulation
-                MessageBox.Show("Søgefunktion starter...", "FlowerGUI", 
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Kunne ikke åbne Google.com: {ex.Message}", "Fejl", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Hide();
             }
         }
