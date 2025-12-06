@@ -4,6 +4,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
+using System.Collections.ObjectModel;
+using System.Reflection;
 using FlowerGUIListener.Models;
 
 namespace FlowerGUIListener.Windows
@@ -12,12 +14,27 @@ namespace FlowerGUIListener.Windows
 	{
 		private Settings _settings;
 
+        public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
+
 		public FlowerGUIWindow(Settings settings = null)
 		{
 			_settings = settings ?? new Settings();
+			PetalButtons = new ObservableCollection<PetalButtonData>();
+            InitializePetalButtons();
 			InitializeComponent();
 			InitializeWindow();
 		}
+
+        private void InitializePetalButtons()
+        {
+            PetalButtons.Add(new PetalButtonData { Content = "Note", ClickAction = nameof(TakeNote_Click), TranslateY = -100, RotateAngle = 0, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Screenshot", ClickAction = nameof(TakeScreenshot_Click), RotateAngle = 51.428, TranslateX = 130.73463588655, TranslateY = -67, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Clipboard", ClickAction = nameof(OpenClipboard_Click), RotateAngle = 102.856, TranslateX = 83, TranslateY = 9, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Search", ClickAction = nameof(Search_Click), RotateAngle = 154.284, TranslateX = 30, TranslateY = 76, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Recent items", ClickAction = nameof(RecentItems_Click), RotateAngle = 205.712, TranslateX = -30, TranslateY = 76, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Help", ClickAction = nameof(Help_Click), RotateAngle = 257.14, TranslateX = -83, TranslateY = 9, CenterX = 50, CenterY = 60});
+            PetalButtons.Add(new PetalButtonData { Content = "Info", ClickAction = nameof(Info_Click), RotateAngle = 308.568, TranslateX = -65, TranslateY = -49, CenterX = 50, CenterY = 60});
+        }
 
 		private void InitializeWindow()
 		{
@@ -208,5 +225,14 @@ namespace FlowerGUIListener.Windows
 			// Optionally hide window when it loses focus
 			this.Hide();
 		}
+
+        private void PetalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button && button.DataContext is PetalButtonData petalData)
+            {
+                var methodInfo = GetType().GetMethod(petalData.ClickAction, BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo?.Invoke(this, new object[] { sender, e });
+            }
+        }
 	}
 }
