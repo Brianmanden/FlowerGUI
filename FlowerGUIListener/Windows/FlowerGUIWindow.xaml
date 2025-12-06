@@ -22,7 +22,7 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Path x:Name="PetalPath"
-                                  Data="M 50,0 C 0,10 40,115 50,120 C 60,115 100,10 50,0 Z"
+                                  Data="M 50,0 C 10,10 45,115 50,120 C 55,115 90,10 50,0 Z"
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill" Margin="0,-57,0,0"/>
                             <ContentPresenter HorizontalAlignment="Center"
