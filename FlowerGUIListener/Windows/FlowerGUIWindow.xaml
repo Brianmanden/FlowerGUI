@@ -116,7 +116,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Button Content="Settings" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeNote_Click">
+            <Button Content="Recent items" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="RecentItems_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="205.712" CenterX="50" CenterY="50"/>

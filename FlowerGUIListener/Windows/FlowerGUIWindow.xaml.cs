@@ -154,6 +154,21 @@ namespace FlowerGUIListener.Windows
             }
         }
 
+        private void RecentItems_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", @"%APPDATA%\Microsoft\Windows\Recent");
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not open Recent Items: {ex.Message}", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Hide();
+            }
+        }
+
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             try
