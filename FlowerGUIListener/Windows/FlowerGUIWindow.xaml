@@ -26,12 +26,9 @@
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill" Margin="0,-57,0,0"/>
 							<ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
+                                            VerticalAlignment="Center" Margin="0,5,0,0">
 								<ContentPresenter.RenderTransform>
-									<TransformGroup>
-										<RotateTransform Angle="-90"/>
-										<TranslateTransform Y="10"/>
-									</TransformGroup>
+									<RotateTransform Angle="-90"/>
 								</ContentPresenter.RenderTransform>
 							</ContentPresenter>
 						</Grid>
