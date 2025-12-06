@@ -143,7 +143,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Ellipse Fill="#FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+            <Ellipse Fill="#FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         
 
