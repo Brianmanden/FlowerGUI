@@ -61,11 +61,6 @@ namespace FlowerGUIListener.Windows
             }
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-        }
-
         private void TakeNote_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -134,11 +129,13 @@ namespace FlowerGUIListener.Windows
                 
                 MessageBox.Show($"Udklipsholder indhold:\n{clipboardText}", "FlowerGUI - Udklipsholder", 
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Hide();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Kunne ikke læse udklipsholder: {ex.Message}", "Fejl", 
                     MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Hide();
             }
         }
 
@@ -178,7 +175,7 @@ namespace FlowerGUIListener.Windows
         {
             base.OnDeactivated(e);
             // Optionally hide window when it loses focus
-            // this.Hide();
+            this.Hide();
         }
     }
 }

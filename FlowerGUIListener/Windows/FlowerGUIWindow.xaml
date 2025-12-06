@@ -131,12 +131,6 @@
             <Ellipse Fill="#FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
         </Grid>
         
-        <Button Style="{StaticResource CloseButtonStyle}"
-                Content="?" 
-                FontSize="14"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Margin="40"
-                Click="CloseButton_Click"/>
+
     </Grid>
 </Window>
