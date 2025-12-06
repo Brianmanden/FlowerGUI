@@ -35,7 +35,7 @@
 						</Grid>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="PetalPath" Property="Fill" Value="#FF66BB6A"/>
+								<Setter TargetName="PetalPath" Property="Fill" Value="#FF9EEAA1"/>
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
 								<Setter TargetName="PetalPath" Property="Fill" Value="#FF388E3C"/>
@@ -77,7 +77,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-			<Ellipse Fill="#4CFFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<Ellipse Fill="#D8FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</Grid>
 
 
