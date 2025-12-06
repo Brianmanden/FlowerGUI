@@ -158,7 +158,8 @@ namespace FlowerGUIListener.Windows
         {
             try
             {
-                Process.Start("explorer.exe", @"%APPDATA%\Microsoft\Windows\Recent");
+                string path = Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Windows\Recent");
+                Process.Start("explorer.exe", path);
                 this.Hide();
             }
             catch (Exception ex)
