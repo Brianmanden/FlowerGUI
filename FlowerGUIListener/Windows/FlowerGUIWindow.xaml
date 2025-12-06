@@ -9,8 +9,8 @@
         Topmost="True"
         ShowInTaskbar="False"
         WindowStartupLocation="Manual">
-    
-    <Window.Resources>
+
+	<Window.Resources>
 		<Style x:Key="PetalButtonStyle" TargetType="Button">
 			<Setter Property="Background" Value="#FF4CAF50"/>
 			<Setter Property="Foreground" Value="White"/>
@@ -25,8 +25,8 @@
                                   Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill" Margin="0,-57,0,0"/>
-							<ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" Margin="0,5,0,0">
+							<ContentPresenter
+								Height="30" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
 								<ContentPresenter.RenderTransform>
 									<RotateTransform Angle="-90"/>
 								</ContentPresenter.RenderTransform>
@@ -46,78 +46,78 @@
 		</Style>
 	</Window.Resources>
 
-    <Grid>
+	<Grid>
 
 
-        <!-- Petal container -->
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            
-            <Button Content="Note" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeNote_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="0" Y="-60"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+		<!-- Petal container -->
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Button Content="Screenshot" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeScreenshot_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="51.428" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="45" Y="-34"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+			<Button Content="Note" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeNote_Click">
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="0" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="0" Y="-60"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
-            <Button Content="Clipboard" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="OpenClipboard_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="102.856" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="58" Y="6"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+			<Button Content="Screenshot" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeScreenshot_Click">
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="51.428" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="45" Y="-34"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
-            <Button Content="Search" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Search_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="154.284" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="21" Y="53"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+			<Button Content="Clipboard" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="OpenClipboard_Click">
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="102.856" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="58" Y="6"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
-            <Button Content="Recent items" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="RecentItems_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="205.712" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-21" Y="53"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+			<Button Content="Search" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Search_Click">
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="154.284" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="21" Y="53"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
+
+			<Button Content="Recent items" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="RecentItems_Click">
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="205.712" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="-21" Y="53"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
 			<Button Content="Help" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Help_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="257.14" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-58" Y="6"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="257.14" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="-58" Y="6"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
 			<Button Content="Info" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Info_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="308.568" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-45" Y="-34"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+				<Button.RenderTransform>
+					<TransformGroup>
+						<RotateTransform Angle="308.568" CenterX="50" CenterY="50"/>
+						<TranslateTransform X="-45" Y="-34"/>
+					</TransformGroup>
+				</Button.RenderTransform>
+			</Button>
 
-            <Ellipse Fill="#FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
-        
+			<Ellipse Fill="#FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Grid>
 
-    </Grid>
+
+	</Grid>
 </Window>
