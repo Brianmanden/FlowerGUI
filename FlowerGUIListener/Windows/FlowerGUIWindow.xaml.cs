@@ -14,27 +14,30 @@ namespace FlowerGUIListener.Windows
 	{
 		private Settings _settings;
 
-        public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
+		public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
 
 		public FlowerGUIWindow(Settings settings = null)
 		{
 			_settings = settings ?? new Settings();
 			PetalButtons = new ObservableCollection<PetalButtonData>();
-            InitializePetalButtons();
+			InitializePetalButtons();
 			InitializeComponent();
 			InitializeWindow();
 		}
 
-        private void InitializePetalButtons()
-        {
-            PetalButtons.Add(new PetalButtonData { Content = "Note", ClickAction = nameof(TakeNote_Click), TranslateY = -100, RotateAngle = 0, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Screenshot", ClickAction = nameof(TakeScreenshot_Click), RotateAngle = 51.428, TranslateX = 130.73463588655, TranslateY = -67, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Clipboard", ClickAction = nameof(OpenClipboard_Click), RotateAngle = 102.856, TranslateX = 83, TranslateY = 9, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Search", ClickAction = nameof(Search_Click), RotateAngle = 154.284, TranslateX = 30, TranslateY = 76, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Recent items", ClickAction = nameof(RecentItems_Click), RotateAngle = 205.712, TranslateX = -30, TranslateY = 76, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Help", ClickAction = nameof(Help_Click), RotateAngle = 257.14, TranslateX = -83, TranslateY = 9, CenterX = 50, CenterY = 60});
-            PetalButtons.Add(new PetalButtonData { Content = "Info", ClickAction = nameof(Info_Click), RotateAngle = 308.568, TranslateX = -65, TranslateY = -49, CenterX = 50, CenterY = 60});
-        }
+		private void InitializePetalButtons()
+		{
+            int totalButtons = 7;
+            double angleIncrement = 360.0 / totalButtons;
+
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 0 * angleIncrement, Content = "Note", ClickAction = nameof(TakeNote_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 1 * angleIncrement, Content = "Screenshot", ClickAction = nameof(TakeScreenshot_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 2 * angleIncrement, Content = "Clipboard", ClickAction = nameof(OpenClipboard_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 3 * angleIncrement, Content = "Search", ClickAction = nameof(Search_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 4 * angleIncrement, Content = "Recent items", ClickAction = nameof(RecentItems_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 5 * angleIncrement, Content = "Help", ClickAction = nameof(Help_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 6 * angleIncrement, Content = "Info", ClickAction = nameof(Info_Click) });
+		}
 
 		private void InitializeWindow()
 		{
@@ -226,13 +229,13 @@ namespace FlowerGUIListener.Windows
 			this.Hide();
 		}
 
-        private void PetalButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is System.Windows.Controls.Button button && button.DataContext is PetalButtonData petalData)
-            {
-                var methodInfo = GetType().GetMethod(petalData.ClickAction, BindingFlags.NonPublic | BindingFlags.Instance);
-                methodInfo?.Invoke(this, new object[] { sender, e });
-            }
-        }
+		private void PetalButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is System.Windows.Controls.Button button && button.DataContext is PetalButtonData petalData)
+			{
+				var methodInfo = GetType().GetMethod(petalData.ClickAction, BindingFlags.NonPublic | BindingFlags.Instance);
+				methodInfo?.Invoke(this, new object[] { sender, e });
+			}
+		}
 	}
 }

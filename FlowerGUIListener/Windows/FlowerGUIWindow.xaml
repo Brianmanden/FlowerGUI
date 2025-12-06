@@ -62,10 +62,10 @@
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <RotateTransform Angle="{Binding RotateAngle}"
-                                                     CenterX="{Binding CenterX}"
-                                                     CenterY="{Binding CenterY}"/>
-                                    <TranslateTransform X="{Binding TranslateX}"
-                                                        Y="{Binding TranslateY}"/>
+                                                     CenterX="50"
+                                                     CenterY="60"/>
+                                    <TranslateTransform X="{Binding CalculatedTranslateX}"
+                                                        Y="{Binding CalculatedTranslateY}"/>
                                 </TransformGroup>
                             </Button.RenderTransform>
                         </Button>
