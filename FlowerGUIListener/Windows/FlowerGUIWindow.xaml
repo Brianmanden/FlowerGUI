@@ -56,7 +56,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="0" Y="-70"/>
+                        <TranslateTransform X="0" Y="-60"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -65,7 +65,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="51.428" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="55" Y="-44"/>
+                        <TranslateTransform X="45" Y="-34"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -74,7 +74,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="102.856" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="68" Y="16"/>
+                        <TranslateTransform X="58" Y="6"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -83,7 +83,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="154.284" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="31" Y="63"/>
+                        <TranslateTransform X="21" Y="53"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -92,7 +92,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="205.712" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-31" Y="63"/>
+                        <TranslateTransform X="-21" Y="53"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -101,7 +101,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="257.14" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-68" Y="16"/>
+                        <TranslateTransform X="-58" Y="6"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
@@ -110,7 +110,7 @@
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="308.568" CenterX="50" CenterY="50"/>
-                        <TranslateTransform X="-55" Y="-44"/>
+                        <TranslateTransform X="-45" Y="-34"/>
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
