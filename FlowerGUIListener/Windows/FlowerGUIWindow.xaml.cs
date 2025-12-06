@@ -1,5 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -55,7 +54,7 @@ namespace FlowerGUIListener.Windows
                     break;
                     
                 case Key.H when Keyboard.Modifiers == ModifierKeys.Control:
-                    ShowHelp();
+                    Info_Click(null, null);
                     e.Handled = true;
                     break;
             }
@@ -171,7 +170,7 @@ namespace FlowerGUIListener.Windows
             }
         }
 
-        private void ShowHelp()
+        private void Info_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("FlowerGUI Hjælp\n\n" +
                           "Genveje:\n" +

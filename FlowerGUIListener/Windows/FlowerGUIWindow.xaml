@@ -22,7 +22,7 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Path x:Name="PetalPath"
-                                  Data="M 50,0 C 10,10 45,115 50,120 C 55,115 90,10 50,0 Z"
+                                  Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill" Margin="0,-57,0,0"/>
                             <ContentPresenter HorizontalAlignment="Center"
@@ -125,7 +125,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Button Content="Help" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Help_Click">
+			<Button Content="Help" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Help_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="257.14" CenterX="50" CenterY="50"/>
@@ -134,7 +134,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Button Content="Info" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeNote_Click">
+			<Button Content="Info" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Info_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="308.568" CenterX="50" CenterY="50"/>
