@@ -28,7 +28,10 @@
 							<ContentPresenter HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
 								<ContentPresenter.RenderTransform>
-									<RotateTransform Angle="-90"/>
+									<TransformGroup>
+										<RotateTransform Angle="-90"/>
+										<TranslateTransform Y="10"/>
+									</TransformGroup>
 								</ContentPresenter.RenderTransform>
 							</ContentPresenter>
 						</Grid>
