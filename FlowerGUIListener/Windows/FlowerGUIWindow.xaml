@@ -75,19 +75,7 @@
     </Window.Resources>
 
     <Grid>
-        <Border Background="White" 
-                CornerRadius="150" 
-                BorderBrush="#FFCCCCCC" 
-                BorderThickness="1"
-                Margin="20">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="5" 
-                                Direction="315" 
-                                Color="Black" 
-                                Opacity="0.3" 
-                                BlurRadius="20"/>
-            </Border.Effect>
-        </Border>
+
 
         <!-- Petal container -->
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
