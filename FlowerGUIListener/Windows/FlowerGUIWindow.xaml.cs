@@ -156,6 +156,22 @@ namespace FlowerGUIListener.Windows
             }
         }
 
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Open the GitHub repository URL
+                Process.Start(new ProcessStartInfo("https://github.com/Brianmanden/FlowerGUI") { UseShellExecute = true });
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not open the URL: {ex.Message}", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Hide();
+            }
+        }
+
         private void ShowHelp()
         {
             MessageBox.Show("FlowerGUI Hjælp\n\n" +

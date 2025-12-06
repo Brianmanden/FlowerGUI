@@ -125,7 +125,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Button Content="Help" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="TakeNote_Click">
+            <Button Content="Help" FontSize="18" Style="{StaticResource PetalButtonStyle}" Click="Help_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="257.14" CenterX="50" CenterY="50"/>
