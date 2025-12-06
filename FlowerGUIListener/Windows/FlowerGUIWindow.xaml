@@ -78,7 +78,19 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-			<Ellipse Fill="#D8FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<Ellipse Fill="#D8FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Ellipse.Style>
+					<Style TargetType="Ellipse">
+						<Setter Property="Fill" Value="#D8FFC107"/>
+						<Style.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Fill" Value="#FFFAE39C"/>
+								<Setter Property="Cursor" Value="SizeAll"/>
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</Ellipse.Style>
+			</Ellipse>
 		</Grid>
 
 
