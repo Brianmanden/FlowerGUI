@@ -27,7 +27,11 @@
                                   Stretch="Fill" Margin="0,-57,0,0"/>
                             <ContentPresenter HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Margin="0,0,0,20"/>
+                                            Margin="0,0,0,20">
+                                <ContentPresenter.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
