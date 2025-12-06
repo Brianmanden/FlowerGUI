@@ -11,68 +11,40 @@
         WindowStartupLocation="Manual">
     
     <Window.Resources>
-        <Style x:Key="PetalButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FF4CAF50"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="120"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Path x:Name="PetalPath"
+		<Style x:Key="PetalButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="#FF4CAF50"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Width" Value="100"/>
+			<Setter Property="Height" Value="120"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid>
+							<Path x:Name="PetalPath"
                                   Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill" Margin="0,-57,0,0"/>
-                            <ContentPresenter HorizontalAlignment="Center"
+							<ContentPresenter HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
-                                <ContentPresenter.RenderTransform>
-                                    <RotateTransform Angle="-90"/>
-                                </ContentPresenter.RenderTransform>
-                            </ContentPresenter>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="PetalPath" Property="Fill" Value="#FF66BB6A"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="PetalPath" Property="Fill" Value="#FF388E3C"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="CloseButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FFF44336"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="15">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFEF5350"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FFD32F2F"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+								<ContentPresenter.RenderTransform>
+									<RotateTransform Angle="-90"/>
+								</ContentPresenter.RenderTransform>
+							</ContentPresenter>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="PetalPath" Property="Fill" Value="#FF66BB6A"/>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="PetalPath" Property="Fill" Value="#FF388E3C"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
 
     <Grid>
 
