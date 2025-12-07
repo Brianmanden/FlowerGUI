@@ -26,9 +26,12 @@
 							<Path x:Name="PetalPath"
                                   Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
-                                  Stretch="Fill" Margin="0,-57,0,0"/>
+                                  Stretch="Fill"
+								  Margin="0,-45,0,0"/>
 							<ContentPresenter
-								Margin="35,0,-2,-26" Height="25" Width="150">
+								    Margin="38,60,-45,0"
+								    Height="20"
+								    Width="250">
 								<ContentPresenter.RenderTransform>
 									<RotateTransform Angle="-90"/>
 								</ContentPresenter.RenderTransform>
@@ -53,31 +56,31 @@
 
 		<!-- Petal container -->
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ItemsControl ItemsSource="{Binding PetalButtons}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Content}"
+			<ItemsControl ItemsSource="{Binding PetalButtons}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Content="{Binding Content}"
                                 FontSize="18"
                                 Style="{StaticResource PetalButtonStyle}"
                                 Click="PetalButton_Click">
-                            <Button.RenderTransform>
-                                <TransformGroup>
-                                    <RotateTransform Angle="{Binding RotateAngle}"
+							<Button.RenderTransform>
+								<TransformGroup>
+									<RotateTransform Angle="{Binding RotateAngle}"
                                                      CenterX="50"
                                                      CenterY="60"/>
-                                    <TranslateTransform X="{Binding CalculatedTranslateX}"
+									<TranslateTransform X="{Binding CalculatedTranslateX}"
                                                         Y="{Binding CalculatedTranslateY}"/>
-                                </TransformGroup>
-                            </Button.RenderTransform>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+								</TransformGroup>
+							</Button.RenderTransform>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Grid/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
 			<Ellipse Fill="#D8FFC107" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<Ellipse.Style>
 					<Style TargetType="Ellipse">
