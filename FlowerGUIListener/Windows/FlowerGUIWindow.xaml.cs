@@ -17,7 +17,7 @@ namespace FlowerGUIListener.Windows
 		private PetalActionService _petalActionService;
 
 		public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
-		public double PetalHeight { get; set; } = 220;
+		public double PetalHeight { get; private set; } = 220; // Default petal height
 
 		public FlowerGUIWindow(Settings settings = null)
 		{
@@ -25,6 +25,17 @@ namespace FlowerGUIListener.Windows
 			_petalActionService = new PetalActionService(this, _settings);
 			PetalButtons = new ObservableCollection<PetalButtonData>();
 			InitializePetalButtons();
+
+            // Calculate required window size
+            double petal_width = 100;
+            double radius = 40 + (PetalHeight / 2);
+            double max_petal_extent = Math.Sqrt(Math.Pow(petal_width / 2, 2) + Math.Pow(PetalHeight / 2, 2));
+            double requiredSize = 2 * (radius + max_petal_extent);
+            double padding = 50; // Add some padding
+
+            this.Width = requiredSize + padding;
+            this.Height = requiredSize + padding;
+
 			InitializeComponent();
 			InitializeWindow();
 		}
