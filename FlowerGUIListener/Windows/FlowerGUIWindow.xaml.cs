@@ -33,15 +33,15 @@ namespace FlowerGUIListener.Windows
             int totalButtons = 9;
             double angleIncrement = 360.0 / totalButtons;
 
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 0 * angleIncrement, Content = "Note", ClickAction = "TakeNote_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 1 * angleIncrement, Content = "Screenshot", ClickAction = "TakeScreenshot_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 2 * angleIncrement, Content = "Clipboard", ClickAction = "OpenClipboard_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 3 * angleIncrement, Content = "Search", ClickAction = "Search_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 4 * angleIncrement, Content = "Recent items", ClickAction = "RecentItems_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 5 * angleIncrement, Content = "Help", ClickAction = "Help_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 6 * angleIncrement, Content = "Info", ClickAction = "Info_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 7 * angleIncrement, Content = "Drive", ClickAction = "Drive_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 8 * angleIncrement, Content = "Total Commander", ClickAction = "TC_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 0 * angleIncrement, Content = "Search", ClickAction = "Search_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 1 * angleIncrement, Content = "Drive", ClickAction = "Drive_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 2 * angleIncrement, Content = "Total Commander", ClickAction = "TC_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 3 * angleIncrement, Content = "Note", ClickAction = "TakeNote_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 4 * angleIncrement, Content = "Screenshot", ClickAction = "TakeScreenshot_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 5 * angleIncrement, Content = "Clipboard", ClickAction = "OpenClipboard_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 6 * angleIncrement, Content = "Recent items", ClickAction = "RecentItems_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 7 * angleIncrement, Content = "Help", ClickAction = "Help_Click" });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 8 * angleIncrement, Content = "Info", ClickAction = "Info_Click" });
 		}
 
 		private void InitializeWindow()
