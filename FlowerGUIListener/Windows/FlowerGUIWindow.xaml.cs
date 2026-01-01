@@ -244,8 +244,14 @@ namespace FlowerGUIListener.Windows
 		{
 			try
 			{
-				// Open the GitHub repository URL
-				Process.Start(new ProcessStartInfo("C:\\Program Files\\totalcmd\\TOTALCMD64.EXE") { UseShellExecute = true });
+				var processStartInfo = new ProcessStartInfo
+				{
+					FileName = "C:\\Program Files\\totalcmd\\TOTALCMD64.EXE",
+					WindowStyle = ProcessWindowStyle.Maximized,
+					UseShellExecute = true
+				};
+
+				Process.Start(processStartInfo);
 				this.Hide();
 			}
 			catch (Exception ex)
