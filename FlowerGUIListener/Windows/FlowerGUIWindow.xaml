@@ -16,7 +16,6 @@
 			<Setter Property="Background" Value="#FF4CAF50"/>
 			<Setter Property="Foreground" Value="White"/>
 			<Setter Property="Width" Value="100"/>
-			<Setter Property="Height" Value="120"/>
 			<Setter Property="Cursor" Value="Hand"/>
 			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 			<Setter Property="Template">
@@ -26,12 +25,8 @@
 							<Path x:Name="PetalPath"
                                   Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
-                                  Stretch="Fill"
-								  Margin="0,-45,0,0"/>
-							<ContentPresenter
-								    Margin="38,60,-45,0"
-								    Height="20"
-								    Width="250">
+                                  Stretch="Fill"/>
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
 								<ContentPresenter.RenderTransform>
 									<RotateTransform Angle="-90"/>
 								</ContentPresenter.RenderTransform>
@@ -62,12 +57,12 @@
 						<Button Content="{Binding Content}"
                                 FontSize="18"
                                 Style="{StaticResource PetalButtonStyle}"
-                                Click="PetalButton_Click">
+                                Click="PetalButton_Click"
+                                Height="{Binding DataContext.PetalHeight, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                RenderTransformOrigin="0.5,0.5">
 							<Button.RenderTransform>
 								<TransformGroup>
-									<RotateTransform Angle="{Binding RotateAngle}"
-                                                     CenterX="50"
-                                                     CenterY="60"/>
+									<RotateTransform Angle="{Binding RotateAngle}"/>
 									<TranslateTransform X="{Binding CalculatedTranslateX}"
                                                         Y="{Binding CalculatedTranslateY}"/>
 								</TransformGroup>

@@ -7,24 +7,16 @@ namespace FlowerGUIListener.Models
         public string Content { get; set; }
         public string ClickAction { get; set; } // Name of the method to call
         
-        private double _rotateAngle;
-        public double RotateAngle
-        {
-            get => _rotateAngle;
-            set
-            {
-                _rotateAngle = value;
-                CalculateTransforms();
-            }
-        }
+        public double RotateAngle { get; set; }
 
         public double CalculatedTranslateX { get; private set; }
         public double CalculatedTranslateY { get; private set; }
 
-        private const double Radius = 100; // Based on initial XAML for "Note" button Y transform
+        public double Radius { get; private set; }
 
-        private void CalculateTransforms()
+        public void UpdateTransforms(double radius)
         {
+            this.Radius = radius;
             // Convert angle to radians
             double angleRad = RotateAngle * (Math.PI / 180.0);
 
@@ -35,3 +27,4 @@ namespace FlowerGUIListener.Models
         }
     }
 }
+

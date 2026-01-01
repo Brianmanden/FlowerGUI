@@ -17,6 +17,7 @@ namespace FlowerGUIListener.Windows
 		private PetalActionService _petalActionService;
 
 		public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
+		public double PetalHeight { get; set; } = 220;
 
 		public FlowerGUIWindow(Settings settings = null)
 		{
@@ -32,17 +33,30 @@ namespace FlowerGUIListener.Windows
 		{
             int totalButtons = 9;
             double angleIncrement = 360.0 / totalButtons;
+            double radius = 40 + (PetalHeight / 2); // 40 is half the width of the center ellipse
 
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 0 * angleIncrement, Content = "Search", ClickAction = "Search_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 1 * angleIncrement, Content = "Drive", ClickAction = "Drive_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 2 * angleIncrement, Content = "Total Commander", ClickAction = "TC_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 3 * angleIncrement, Content = "Note", ClickAction = "TakeNote_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 4 * angleIncrement, Content = "Screenshot", ClickAction = "TakeScreenshot_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 5 * angleIncrement, Content = "Clipboard", ClickAction = "OpenClipboard_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 6 * angleIncrement, Content = "Recent items", ClickAction = "RecentItems_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 7 * angleIncrement, Content = "Help", ClickAction = "Help_Click" });
-			PetalButtons.Add(new PetalButtonData { RotateAngle = 8 * angleIncrement, Content = "Info", ClickAction = "Info_Click" });
-		}
+            AddPetalButton(0 * angleIncrement, "Search", "Search_Click", radius);
+            AddPetalButton(1 * angleIncrement, "Drive", "Drive_Click", radius);
+            AddPetalButton(2 * angleIncrement, "Total Commander", "TC_Click", radius);
+            AddPetalButton(3 * angleIncrement, "Note", "TakeNote_Click", radius);
+            AddPetalButton(4 * angleIncrement, "Screenshot", "TakeScreenshot_Click", radius);
+            AddPetalButton(5 * angleIncrement, "Clipboard", "OpenClipboard_Click", radius);
+            AddPetalButton(6 * angleIncrement, "Recent items", "RecentItems_Click", radius);
+            AddPetalButton(7 * angleIncrement, "Help", "Help_Click", radius);
+            AddPetalButton(8 * angleIncrement, "Info", "Info_Click", radius);
+        }
+
+        private void AddPetalButton(double angle, string content, string action, double radius)
+        {
+            var petalButton = new PetalButtonData
+            {
+                RotateAngle = angle,
+                Content = content,
+                ClickAction = action
+            };
+            petalButton.UpdateTransforms(radius);
+            PetalButtons.Add(petalButton);
+        }
 
 		private void InitializeWindow()
 		{
