@@ -25,17 +25,13 @@
                                   Data="M 50 0 C -24 0 45 115 50 120 C 55 115 126 0 50 0 Z"
                                   Fill="{TemplateBinding Background}"
                                   Stretch="Fill"/>
-							<Border BorderBrush="Red" BorderThickness="1">
-								<!--
-									Margin: Left, Top. Right, Bottom
-								-->
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"
-									Height="20" Width="100" Margin="0,180,-70,0">
-									<ContentPresenter.RenderTransform>
-										<RotateTransform Angle="-90"/>
-									</ContentPresenter.RenderTransform>
-								</ContentPresenter>
-							</Border>
+							<!-- Margin: Left, Top. Right, Bottom -->
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"
+									Height="20" Width="150" Margin="0,180,-120,0">
+								<ContentPresenter.RenderTransform>
+									<RotateTransform Angle="-90"/>
+								</ContentPresenter.RenderTransform>
+							</ContentPresenter>
 						</Grid>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
