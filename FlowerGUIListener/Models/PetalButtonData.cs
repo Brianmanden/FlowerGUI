@@ -21,7 +21,7 @@ namespace FlowerGUIListener.Models
         public double CalculatedTranslateX { get; private set; }
         public double CalculatedTranslateY { get; private set; }
 
-        private const double Radius = 75; // Based on initial XAML for "Note" button Y transform
+        private const double Radius = 100; // Based on initial XAML for "Note" button Y transform
 
         private void CalculateTransforms()
         {

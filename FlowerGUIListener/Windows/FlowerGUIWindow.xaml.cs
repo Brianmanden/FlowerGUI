@@ -27,7 +27,7 @@ namespace FlowerGUIListener.Windows
 
 		private void InitializePetalButtons()
 		{
-            int totalButtons = 7;
+            int totalButtons = 9;
             double angleIncrement = 360.0 / totalButtons;
 
 			PetalButtons.Add(new PetalButtonData { RotateAngle = 0 * angleIncrement, Content = "Note", ClickAction = nameof(TakeNote_Click) });
@@ -37,6 +37,8 @@ namespace FlowerGUIListener.Windows
 			PetalButtons.Add(new PetalButtonData { RotateAngle = 4 * angleIncrement, Content = "Recent items", ClickAction = nameof(RecentItems_Click) });
 			PetalButtons.Add(new PetalButtonData { RotateAngle = 5 * angleIncrement, Content = "Help", ClickAction = nameof(Help_Click) });
 			PetalButtons.Add(new PetalButtonData { RotateAngle = 6 * angleIncrement, Content = "Info", ClickAction = nameof(Info_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 7 * angleIncrement, Content = "Drive", ClickAction = nameof(Drive_Click) });
+			PetalButtons.Add(new PetalButtonData { RotateAngle = 8 * angleIncrement, Content = "Total Commander", ClickAction = nameof(TC_Click) });
 		}
 
 		private void InitializeWindow()
@@ -217,6 +219,38 @@ namespace FlowerGUIListener.Windows
 			catch (Exception ex)
 			{
 				MessageBox.Show($"Could not open the URL: {ex.Message}", "Error",
+					MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Hide();
+			}
+		}
+
+		private void Drive_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				// Open the GitHub repository URL
+				Process.Start(new ProcessStartInfo("https://drive.google.com/drive/my-drive") { UseShellExecute = true });
+				this.Hide();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Could not open the URL: {ex.Message}", "Error",
+					MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Hide();
+			}
+		}
+
+		private void TC_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				// Open the GitHub repository URL
+				Process.Start(new ProcessStartInfo("C:\\Program Files\\totalcmd\\TOTALCMD64.EXE") { UseShellExecute = true });
+				this.Hide();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Could not open Total Commander: {ex.Message}", "Error",
 					MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Hide();
 			}
