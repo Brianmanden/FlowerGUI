@@ -17,14 +17,13 @@ namespace FlowerGUIListener
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            // Prevent app from shutting down when no windows are open
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             try
             {
                 InitializeServices();
-                
-                // Hide main window, only show tray icon
-                if (Current.MainWindow != null)
-                    Current.MainWindow.Hide();
             }
             catch (Exception ex)
             {
