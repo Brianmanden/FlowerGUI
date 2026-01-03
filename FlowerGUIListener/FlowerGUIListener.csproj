@@ -6,7 +6,8 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<!-- Nødvendigt for NotifyIcon -->
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
-		<UseAppHost>false</UseAppHost>
+		<UseAppHost>true</UseAppHost>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	</PropertyGroup>
 
 </Project>

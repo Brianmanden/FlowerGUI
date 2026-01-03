@@ -21,10 +21,9 @@ namespace FlowerGUIListener
             try
             {
                 InitializeServices();
-                
-                // Hide main window, only show tray icon
-                if (Current.MainWindow != null)
-                    Current.MainWindow.Hide();
+
+				// Prevent app from shutting down when no windows are open
+				ShutdownMode = ShutdownMode.OnExplicitShutdown;
             }
             catch (Exception ex)
             {
