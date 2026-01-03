@@ -17,6 +17,9 @@ namespace FlowerGUIListener
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            // Prevent app from shutting down when no windows are open
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             try
             {
