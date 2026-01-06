@@ -1,0 +1,33 @@
+[
+  {
+    "id": "search",
+    "label": "Search",
+    "launchableResource": "https://www.google.com",
+    "useShellExecute": true
+  },
+  {
+    "id": "gdrive",
+    "label": "GDrive",
+    "launchableResource": "https://drive.google.com/drive/my-drive",
+    "useShellExecute": true
+  },
+  {
+    "id": "totalcommander",
+    "label": "Total Commander",
+    "launchableResource": "C:\\Program Files\\totalcmd\\TOTALCMD64.EXE",
+    "windowStyle": "Maximized",
+    "useShellExecute": true
+  },
+  {
+    "id": "recentitems",
+    "label": "Recent items",
+    "launchableResource": "explorer.exe",
+    "arguments": "%APPDATA%\\Microsoft\\Windows\\Recent"
+  },
+  {
+    "id": "info",
+    "label": "Info",
+    "launchableResource": "https://github.com/Brianmanden/FlowerGUI",
+    "useShellExecute": true
+  }
+]

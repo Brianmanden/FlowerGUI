@@ -1,9 +1,9 @@
 using System;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-
 using System.Collections.ObjectModel;
 using System.Reflection;
 using FlowerGUIListener.Models;
@@ -11,51 +11,67 @@ using FlowerGUIListener.Services;
 
 namespace FlowerGUIListener.Windows
 {
-	public partial class FlowerGUIWindow : Window
-	{
-		private Settings _settings;
-		private PetalActionService _petalActionService;
+    public partial class FlowerGUIWindow : Window
+    {
+        private Settings _settings;
+        private PetalActionService _petalActionService;
+        private readonly List<PetalAction> _petalActions;
 
-		public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
-		public double PetalHeight { get; private set; } = 220; // Default petal height
+        public ObservableCollection<PetalButtonData> PetalButtons { get; set; }
+        public double PetalHeight { get; private set; } = 220; // Default petal height
 
-		public FlowerGUIWindow(Settings settings = null)
-		{
-			_settings = settings ?? new Settings();
-			_petalActionService = new PetalActionService(this, _settings);
-			PetalButtons = new ObservableCollection<PetalButtonData>();
-			InitializePetalButtons();
+        public FlowerGUIWindow(Settings settings, List<PetalAction> petalActions)
+        {
+            _settings = settings ?? new Settings();
+            _petalActions = petalActions;
+            _petalActionService = new PetalActionService(this, _settings, _petalActions);
+            PetalButtons = new ObservableCollection<PetalButtonData>();
+            InitializePetalButtons();
 
-			// Calculate required window size
-			double petal_width = 100;
-			double radius = 40 + (PetalHeight / 2);
-			double max_petal_extent = Math.Sqrt(Math.Pow(petal_width / 2, 2) + Math.Pow(PetalHeight / 2, 2));
-			double requiredSize = 2 * (radius + max_petal_extent);
-			double padding = 50; // Add some padding
+            // Calculate required window size
+            double petal_width = 100;
+            double radius = 40 + (PetalHeight / 2);
+            double max_petal_extent = Math.Sqrt(Math.Pow(petal_width / 2, 2) + Math.Pow(PetalHeight / 2, 2));
+            double requiredSize = 2 * (radius + max_petal_extent);
+            double padding = 50; // Add some padding
 
-			this.Width = requiredSize + padding;
-			this.Height = requiredSize + padding;
+            this.Width = requiredSize + padding;
+            this.Height = requiredSize + padding;
 
-			InitializeComponent();
-			InitializeWindow();
-		}
+            InitializeComponent();
+            InitializeWindow();
+        }
 
-		private void InitializePetalButtons()
-		{
-			int totalButtons = 9;
-			double angleIncrement = 360.0 / totalButtons;
-			double petalTipDistanceToCenter = 25 + (PetalHeight / 2);
+        private void InitializePetalButtons()
+        {
+            var allActions = new List<PetalButtonData>();
 
-			AddPetalButton(0 * angleIncrement, "Search", "Search_Click", petalTipDistanceToCenter);
-			AddPetalButton(1 * angleIncrement, "GDrive", "Drive_Click", petalTipDistanceToCenter);
-			AddPetalButton(2 * angleIncrement, "Total Commander", "TC_Click", petalTipDistanceToCenter);
-			AddPetalButton(3 * angleIncrement, "Note", "TakeNote_Click", petalTipDistanceToCenter);
-			AddPetalButton(4 * angleIncrement, "Screenshot", "TakeScreenshot_Click", petalTipDistanceToCenter);
-			AddPetalButton(5 * angleIncrement, "Clipboard", "OpenClipboard_Click", petalTipDistanceToCenter);
-			AddPetalButton(6 * angleIncrement, "Recent items", "RecentItems_Click", petalTipDistanceToCenter);
-			AddPetalButton(7 * angleIncrement, "Help", "Help_Click", petalTipDistanceToCenter);
-			AddPetalButton(8 * angleIncrement, "Info", "Info_Click", petalTipDistanceToCenter);
-		}
+            if (_petalActions != null)
+            {
+                // Add actions from JSON
+                foreach (var action in _petalActions)
+                {
+                    allActions.Add(new PetalButtonData { Content = action.Label, ClickAction = action.Id });
+                }
+            }
+
+            // Add hardcoded actions
+            allActions.Add(new PetalButtonData { Content = "Note", ClickAction = "TakeNote_Click" });
+            allActions.Add(new PetalButtonData { Content = "Screenshot", ClickAction = "TakeScreenshot_Click" });
+            allActions.Add(new PetalButtonData { Content = "Clipboard", ClickAction = "OpenClipboard_Click" });
+            allActions.Add(new PetalButtonData { Content = "Help", ClickAction = "Help_Click" });
+
+
+            int totalButtons = allActions.Count;
+            double angleIncrement = 360.0 / totalButtons;
+            double petalTipDistanceToCenter = 25 + (PetalHeight / 2);
+
+            for (int i = 0; i < totalButtons; i++)
+            {
+                var action = allActions[i];
+                AddPetalButton(i * angleIncrement, action.Content, action.ClickAction, petalTipDistanceToCenter);
+            }
+        }
 
 		private void AddPetalButton(double angle, string content, string action, double radius)
 		{
@@ -105,10 +121,10 @@ namespace FlowerGUIListener.Windows
 					e.Handled = true;
 					break;
 
-				case Key.H when Keyboard.Modifiers == ModifierKeys.Control:
-					_petalActionService.Info_Click(null, null);
-					e.Handled = true;
-					break;
+				//case Key.H when Keyboard.Modifiers == ModifierKeys.Control:
+				//	_petalActionService.Info_Click(null, null);
+				//	e.Handled = true;
+				//	break;
 			}
 		}
 
@@ -119,13 +135,22 @@ namespace FlowerGUIListener.Windows
 			this.Hide();
 		}
 
-		private void PetalButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (sender is System.Windows.Controls.Button button && button.DataContext is PetalButtonData petalData)
-			{
-				var methodInfo = typeof(PetalActionService).GetMethod(petalData.ClickAction);
-				methodInfo?.Invoke(_petalActionService, new object[] { sender, e });
-			}
-		}
+        private void PetalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is PetalButtonData petalData)
+            {
+                // Check if the action is one of the hardcoded methods
+                var methodInfo = typeof(PetalActionService).GetMethod(petalData.ClickAction);
+                if (methodInfo != null)
+                {
+                    methodInfo.Invoke(_petalActionService, new object[] { sender, e });
+                }
+                else
+                {
+                    // Otherwise, it's an ID for the generic Execute method
+                    _petalActionService.Execute(petalData.ClickAction);
+                }
+            }
+        }
 	}
 }

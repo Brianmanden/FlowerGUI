@@ -1,7 +1,9 @@
 using FlowerGUIListener.Windows;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using FlowerGUIListener.Models;
 
@@ -11,11 +13,38 @@ namespace FlowerGUIListener.Services
     {
         private readonly FlowerGUIWindow _flowerGuiWindow;
         private readonly Settings _settings;
+        private readonly List<PetalAction> _petalActions;
 
-        public PetalActionService(FlowerGUIWindow flowerGuiWindow, Settings settings)
+        public PetalActionService(FlowerGUIWindow flowerGuiWindow, Settings settings, List<PetalAction> petalActions)
         {
             _flowerGuiWindow = flowerGuiWindow;
             _settings = settings;
+            _petalActions = petalActions;
+        }
+
+        public void Execute(string actionId)
+        {
+            var action = _petalActions.FirstOrDefault(a => a.Id == actionId);
+            if (action != null)
+            {
+                try
+                {
+                    var processStartInfo = new ProcessStartInfo
+                    {
+                        FileName = Environment.ExpandEnvironmentVariables(action.LaunchableResource),
+                        Arguments = action.Arguments != null ? Environment.ExpandEnvironmentVariables(action.Arguments) : null,
+                        WindowStyle = action.WindowStyle,
+                        UseShellExecute = action.UseShellExecute
+                    };
+                    Process.Start(processStartInfo);
+                    _flowerGuiWindow.Hide();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not perform action '{action.Label}': {ex.Message}", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         public void TakeNote_Click(object sender, RoutedEventArgs e)
@@ -96,38 +125,6 @@ namespace FlowerGUIListener.Services
             }
         }
 
-        public void Search_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Open Google.com
-                Process.Start(new ProcessStartInfo("https://www.google.com") { UseShellExecute = true });
-                _flowerGuiWindow.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Kunne ikke åbne Google.com: {ex.Message}", "Fejl",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                _flowerGuiWindow.Hide();
-            }
-        }
-
-        public void RecentItems_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string path = Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Windows\Recent");
-                Process.Start("explorer.exe", path);
-                _flowerGuiWindow.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not open Recent Items: {ex.Message}", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                _flowerGuiWindow.Hide();
-            }
-        }
-
         public void Help_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("FlowerGUI Hjælp\n\n" +
@@ -141,60 +138,6 @@ namespace FlowerGUIListener.Services
                   "• Udklipsholder: Vis udklipsholder-indhold\n" +
                   "• Søg: Åbn Windows søgning",
                   "FlowerGUI Hjælp", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        public void Info_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Open the GitHub repository URL
-                Process.Start(new ProcessStartInfo("https://github.com/Brianmanden/FlowerGUI") { UseShellExecute = true });
-                _flowerGuiWindow.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not open the URL: {ex.Message}", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                _flowerGuiWindow.Hide();
-            }
-        }
-
-        public void Drive_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Open the GitHub repository URL
-                Process.Start(new ProcessStartInfo("https://drive.google.com/drive/my-drive") { UseShellExecute = true });
-                _flowerGuiWindow.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not open the URL: {ex.Message}", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                _flowerGuiWindow.Hide();
-            }
-        }
-
-        public void TC_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = "C:\\Program Files\\totalcmd\\TOTALCMD64.EXE",
-                    WindowStyle = ProcessWindowStyle.Maximized,
-                    UseShellExecute = true
-                };
-
-                Process.Start(processStartInfo);
-                _flowerGuiWindow.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not open Total Commander: {ex.Message}", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                _flowerGuiWindow.Hide();
-            }
         }
     }
 }

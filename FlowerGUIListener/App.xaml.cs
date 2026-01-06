@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization; // Add this using statement
 using System.Windows;
 using FlowerGUIListener.Models;
 using FlowerGUIListener.Services;
@@ -12,6 +16,7 @@ namespace FlowerGUIListener
         private TrayIconManager _trayManager;
         private FlowerGUIWindow _flowerWindow;
         private Settings _settings;
+        private List<PetalAction> _petalActions;
         private bool _disposed = false;
 
         protected override void OnStartup(StartupEventArgs e)
@@ -40,9 +45,12 @@ namespace FlowerGUIListener
         {
             // Load settings
             _settings = Settings.Load();
+
+            // Load petal actions
+            LoadPetalActions();
             
             // Initialize FlowerGUI window
-            _flowerWindow = new FlowerGUIWindow(_settings);
+            _flowerWindow = new FlowerGUIWindow(_settings, _petalActions);
             
             // Initialize and setup tray icon manager
             _trayManager = new TrayIconManager();
@@ -74,6 +82,33 @@ namespace FlowerGUIListener
                 _trayManager.ShowBalloonTip("FlowerGUI Startet", 
                     "FlowerGUI lytter nu efter Ctrl + højreklik.", 
                     System.Windows.Forms.ToolTipIcon.Info);
+            }
+        }
+        
+        private void LoadPetalActions()
+        {
+            try
+            {
+                string filePath = "actions.json";
+                if (File.Exists(filePath))
+                {
+                    string json = File.ReadAllText(filePath);
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        Converters = { new JsonStringEnumConverter() } // Add this converter
+                    };
+                    _petalActions = JsonSerializer.Deserialize<List<PetalAction>>(json, options);
+                }
+                else
+                {
+                    _petalActions = new List<PetalAction>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading actions.json: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _petalActions = new List<PetalAction>();
             }
         }
 
