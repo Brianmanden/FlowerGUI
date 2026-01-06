@@ -89,14 +89,16 @@ namespace FlowerGUIListener
         {
             try
             {
-                string filePath = "actions.json";
+                string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = Path.Combine(exePath, "actions.json");
+
                 if (File.Exists(filePath))
                 {
                     string json = File.ReadAllText(filePath);
                     var options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true,
-                        Converters = { new JsonStringEnumConverter() } // Add this converter
+                        Converters = { new JsonStringEnumConverter() } 
                     };
                     _petalActions = JsonSerializer.Deserialize<List<PetalAction>>(json, options);
                 }
