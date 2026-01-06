@@ -85,8 +85,8 @@ namespace FlowerGUIListener.Windows
 			var screen = System.Windows.Forms.Screen.FromPoint(new System.Drawing.Point(x, y));
 
 			// Calculate position
-			double windowX = Math.Max(0, Math.Min(x - this.Width / 2, screen.WorkingArea.Width - this.Width));
-			double windowY = Math.Max(0, Math.Min(y - this.Height / 2, screen.WorkingArea.Height - this.Height));
+			double windowX = Math.Max(screen.WorkingArea.Left, Math.Min(x - this.Width / 2, screen.WorkingArea.Right - this.Width));
+			double windowY = Math.Max(screen.WorkingArea.Top, Math.Min(y - this.Height / 2, screen.WorkingArea.Bottom - this.Height));
 
 			this.Left = windowX;
 			this.Top = windowY;
