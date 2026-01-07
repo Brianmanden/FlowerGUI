@@ -35,8 +35,8 @@ namespace FlowerGUIListener
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Fejl ved opstart: {ex.Message}\n\nApplikationen vil lukke.", 
-                    "FlowerGUI Fejl", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error during startup: {ex.Message}\n\nFlowerGUI will close.", 
+                    "FlowerGUI Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown();
             }
         }
@@ -54,7 +54,7 @@ namespace FlowerGUIListener
             
             // Initialize and setup tray icon manager
             _trayManager = new TrayIconManager();
-            _trayManager.Initialize("FlowerGUI Listener - Aktiv");
+            _trayManager.Initialize("FlowerGUI - Active");
             _trayManager.ShowMainWindow += OnShowMainWindow;
             _trayManager.ExitApplication += OnExitApplication;
             _trayManager.Show();
@@ -68,19 +68,19 @@ namespace FlowerGUIListener
             
             if (!_hookManager.InstallHooks())
             {
-                string message = "Kunne ikke installere globale genveje. Funktionalitet kan være begrænset.";
+                string message = "Could not install global hooks. Functionality may be restricted.";
                 if (!isElevated)
                 {
-                    message += "\n\nPrøv at køre som administrator for bedre kompatibilitet.";
+                    message += "\n\nRun as administrator for better compatibility.";
                 }
                 
-                _trayManager.ShowBalloonTip("FlowerGUI Advarsel", message, 
+                _trayManager.ShowBalloonTip("FlowerGUI Warning", message, 
                     System.Windows.Forms.ToolTipIcon.Warning);
             }
             else
             {
-                _trayManager.ShowBalloonTip("FlowerGUI Startet", 
-                    "FlowerGUI lytter nu efter Ctrl + højreklik.", 
+                _trayManager.ShowBalloonTip("FlowerGUI Started", 
+                    "FlowerGUI is now reacting to [Ctrl] + Right Click.", 
                     System.Windows.Forms.ToolTipIcon.Info);
             }
         }

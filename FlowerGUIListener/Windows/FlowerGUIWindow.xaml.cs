@@ -120,11 +120,6 @@ namespace FlowerGUIListener.Windows
 					this.Hide();
 					e.Handled = true;
 					break;
-
-				//case Key.H when Keyboard.Modifiers == ModifierKeys.Control:
-				//	_petalActionService.Info_Click(null, null);
-				//	e.Handled = true;
-				//	break;
 			}
 		}
 

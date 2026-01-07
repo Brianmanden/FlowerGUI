@@ -7,7 +7,7 @@
   },
   {
     "id": "gdrive",
-    "label": "GDrive",
+    "label": "Google Drive",
     "launchableResource": "https://drive.google.com/drive/my-drive",
     "useShellExecute": true
   },
@@ -15,6 +15,13 @@
     "id": "totalcommander",
     "label": "Total Commander",
     "launchableResource": "C:\\Program Files\\totalcmd\\TOTALCMD64.EXE",
+    "windowStyle": "Maximized",
+    "useShellExecute": true
+  },
+  {
+    "id": "cs2",
+    "label": "Counter Strike 2",
+    "launchableResource": "steam://rungameid/730",
     "windowStyle": "Maximized",
     "useShellExecute": true
   },

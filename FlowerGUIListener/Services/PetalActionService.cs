@@ -41,7 +41,7 @@ namespace FlowerGUIListener.Services
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Could not perform action '{action.Label}': {ex.Message}", "Error",
+                    MessageBox.Show($"Could not perform action: '{action.Label}' - {ex.Message}", "Error",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -55,7 +55,7 @@ namespace FlowerGUIListener.Services
                 string noteFile = Path.Combine(_settings.NotesDirectory,
                     $"FlowerGUI_Note_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
 
-                File.WriteAllText(noteFile, $"FlowerGUI Notat - {DateTime.Now:yyyy-MM-dd HH:mm:ss}\n\n");
+                File.WriteAllText(noteFile, $"FlowerGUI Note - {DateTime.Now:yyyy-MM-dd HH:mm:ss}\n\n");
 
                 // Open in default text editor
                 Process.Start(new ProcessStartInfo(noteFile) { UseShellExecute = true });
@@ -64,7 +64,7 @@ namespace FlowerGUIListener.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Kunne ikke oprette notat: {ex.Message}", "Fejl",
+                MessageBox.Show($"Could not create note: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -91,13 +91,13 @@ namespace FlowerGUIListener.Services
 
                     bitmap.Save(screenshotFile, System.Drawing.Imaging.ImageFormat.Png);
 
-                    MessageBox.Show($"Skærmbillede gemt til:\n{screenshotFile}", "FlowerGUI",
+                    MessageBox.Show($"Screenshot saved at:\n{screenshotFile}", "FlowerGUI",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Kunne ikke tage skærmbillede: {ex.Message}", "Fejl",
+                MessageBox.Show($"Could not take screenshot: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -113,13 +113,13 @@ namespace FlowerGUIListener.Services
                     clipboardText = Clipboard.GetText();
                 }
 
-                MessageBox.Show($"Udklipsholder indhold:\n{clipboardText}", "FlowerGUI - Udklipsholder",
+                MessageBox.Show($"Clipboard contents:\n{clipboardText}", "FlowerGUI - Clipboard",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 _flowerGuiWindow.Hide();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Kunne ikke læse udklipsholder: {ex.Message}", "Fejl",
+                MessageBox.Show($"Could not read clipboard: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 _flowerGuiWindow.Hide();
             }
@@ -127,17 +127,11 @@ namespace FlowerGUIListener.Services
 
         public void Help_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("FlowerGUI Hjælp\n\n" +
-                  "Genveje:\n" +
-                  "• Ctrl + Højreklik: Åbn FlowerGUI\n" +
-                  "• Esc: Luk FlowerGUI\n" +
-                  "• Ctrl + H: Vis hjælp\n\n" +
-                  "Funktioner:\n" +
-                  "• Notat: Opret hurtige notater\n" +
-                  "• Skærmbillede: Tag skærmbilleder\n" +
-                  "• Udklipsholder: Vis udklipsholder-indhold\n" +
-                  "• Søg: Åbn Windows søgning",
-                  "FlowerGUI Hjælp", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("FlowerGUI Help\n\n" +
+                  "How to use:\n" +
+                  "• [Ctrl] + Right Click: Open FlowerGUI\n" +
+                  "• [Esc]: Close FlowerGUI\n",
+                  "FlowerGUI Help", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

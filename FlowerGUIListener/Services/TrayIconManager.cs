@@ -58,13 +58,13 @@ namespace FlowerGUIListener.Services
             var contextMenu = new ContextMenuStrip();
             
             // Show main window option
-            var showItem = new ToolStripMenuItem("Vis FlowerGUI", null, OnShowMainWindow);
+            var showItem = new ToolStripMenuItem("Show FlowerGUI", null, OnShowMainWindow);
             contextMenu.Items.Add(showItem);
             
             contextMenu.Items.Add(new ToolStripSeparator());
             
             // Status item
-            var statusItem = new ToolStripMenuItem("Status: Aktiv")
+            var statusItem = new ToolStripMenuItem("Status: Active")
             {
                 Enabled = false
             };
@@ -73,17 +73,17 @@ namespace FlowerGUIListener.Services
             contextMenu.Items.Add(new ToolStripSeparator());
             
             // Settings option
-            var settingsItem = new ToolStripMenuItem("Indstillinger", null, OnSettings);
+            var settingsItem = new ToolStripMenuItem("Settings", null, OnSettings);
             contextMenu.Items.Add(settingsItem);
             
             // About option
-            var aboutItem = new ToolStripMenuItem("Om FlowerGUI", null, OnAbout);
+            var aboutItem = new ToolStripMenuItem("About FlowerGUI", null, OnAbout);
             contextMenu.Items.Add(aboutItem);
             
             contextMenu.Items.Add(new ToolStripSeparator());
             
             // Exit option
-            var exitItem = new ToolStripMenuItem("Afslut", null, OnExit);
+            var exitItem = new ToolStripMenuItem("Exit", null, OnExit);
             contextMenu.Items.Add(exitItem);
 
             _trayIcon.ContextMenuStrip = contextMenu;
@@ -125,14 +125,14 @@ namespace FlowerGUIListener.Services
         private void OnSettings(object sender, EventArgs e)
         {
             // TODO: Implement settings dialog
-            MessageBox.Show("Indstillinger kommer snart!", "FlowerGUI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Settings coming soon!", "FlowerGUI", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void OnAbout(object sender, EventArgs e)
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            MessageBox.Show($"FlowerGUI Listener v{version}\\n\\nGlobal hotkey listener til FlowerGUI.\\nTryk Ctrl + højreklik for at aktivere.", 
-                "Om FlowerGUI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"FlowerGUI v{version}\n\nGlobal hotkey listener.\n\nHold [Ctrl] + Right Click to activate.\n\n[Esc] to close FlowerGUI.", 
+                "About FlowerGUI", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void OnExit(object sender, EventArgs e)
