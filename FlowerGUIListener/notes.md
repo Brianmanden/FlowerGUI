@@ -2,6 +2,13 @@
 
 ```terminal
 // Works - copies ALSO the actions.json file when compiling
+dotnet publish -c Release -p:PublishProfile=FolderProfile
+```
+
+---
+
+```terminal
+// Works - copies ALSO the actions.json file when compiling
 dotnet publish --configuration Release --runtime win-x64 --self-contained true
 ```
 
